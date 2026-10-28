@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { NavLink, Link, useNavigate } from 'react-router-dom'
 import {
-  Moon,
-  Sun,
   Menu,
   X,
   Layers,
@@ -16,7 +14,6 @@ import {
   CheckCheck,
 } from 'lucide-react'
 import { useAppDispatch, useAppSelector } from '../../store/hooks'
-import { toggleTheme } from '../../store/slices/themeSlice'
 import { logoutUser } from '../../store/slices/authSlice'
 import { notificationService, type AppNotification } from '../../services/notificationService'
 
@@ -30,7 +27,6 @@ export const Navbar: React.FC = () => {
   const [unreadCount, setUnreadCount] = useState(2)
   const [notifications, setNotifications] = useState<AppNotification[]>([])
 
-  const themeMode = useAppSelector((state) => state.theme.mode)
   const { user, isAuthenticated } = useAppSelector((state) => state.auth)
 
   useEffect(() => {
@@ -210,20 +206,6 @@ export const Navbar: React.FC = () => {
               )}
             </div>
           )}
-
-          {/* Theme Toggle Button */}
-          <button
-            type="button"
-            onClick={() => dispatch(toggleTheme())}
-            aria-label="Toggle theme"
-            className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 bg-white/70 text-slate-700 shadow-xs transition-all hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-900/70 dark:text-slate-300 dark:hover:bg-slate-800"
-          >
-            {themeMode === 'dark' ? (
-              <Sun className="h-4 w-4 text-amber-400" />
-            ) : (
-              <Moon className="h-4 w-4 text-slate-600" />
-            )}
-          </button>
 
           {isAuthenticated && user ? (
             <div className="relative">
